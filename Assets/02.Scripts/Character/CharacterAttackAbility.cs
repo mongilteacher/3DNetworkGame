@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAttackAbility : MonoBehaviour
+public class CharacterAttackAbility : CharacterAbility
 {
     // SOLID 법칙: 객체지향 5가지 법칙
     // 1. 단일 책임 원칙 (가장 단순하지만 꼭 지켜야 하는 원칙)
@@ -14,7 +14,6 @@ public class CharacterAttackAbility : MonoBehaviour
     // - 기존의 클래스로 해결할 수 없다면 새로운 클래스를 구현
 
     private Animator _animator;
-    public float CoolTime = 1f;
     private float _attackTimer = 0;
 
     private void Start()
@@ -26,7 +25,7 @@ public class CharacterAttackAbility : MonoBehaviour
     {
         _attackTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _attackTimer >= CoolTime)
+        if (Input.GetMouseButtonDown(0) && _attackTimer >= Owner.Stat.AttackCoolTime)
         {
             _attackTimer = 0f;
             

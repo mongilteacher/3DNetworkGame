@@ -3,10 +3,8 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
-public class CharacterMoveAbility : MonoBehaviour
+public class CharacterMoveAbility : CharacterAbility
 {
-    public float MoveSpeed = 7;
-    
     // 목표: [W],[A],[S],[D] 및 방향키를 누르면 캐릭터를 그 뱡향으로 이동시키고 싶다.
     private CharacterController _characterController;
     private Animator _animator;
@@ -36,7 +34,7 @@ public class CharacterMoveAbility : MonoBehaviour
         dir.y = -1f;
         
         // 3. 이동속도에 따라 그 방향으로 이동한다.
-        _characterController.Move(dir * (MoveSpeed * Time.deltaTime));
+        _characterController.Move(dir * (Owner.Stat.MoveSpeed * Time.deltaTime));
         
     }
 }
