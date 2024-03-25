@@ -1,16 +1,19 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Animator))]
 public class CharacterMoveAbility : MonoBehaviour
 {
     public float MoveSpeed = 7;
     
     // 목표: [W],[A],[S],[D] 및 방향키를 누르면 캐릭터를 그 뱡향으로 이동시키고 싶다.
     private CharacterController _characterController;
-
+    private Animator _animator;
+    
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
     }
     
     private void Update()
@@ -24,6 +27,8 @@ public class CharacterMoveAbility : MonoBehaviour
         Vector3 dir = new Vector3(h, 0, v);
         dir.Normalize();
         dir = Camera.main.transform.TransformDirection(dir);
+        
+        _animator.SetFloat("Move", dir.magnitude);
 
         // 4. 중력 적용하세요.
         dir.y = -1f;
