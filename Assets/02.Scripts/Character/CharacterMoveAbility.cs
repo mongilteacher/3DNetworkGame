@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
@@ -18,6 +19,7 @@ public class CharacterMoveAbility : MonoBehaviour
     
     private void Update()
     {
+        
         // 순서
         // 1. 사용자의 키보드 입력을 받는다.
         float h = Input.GetAxisRaw("Horizontal");
@@ -35,5 +37,6 @@ public class CharacterMoveAbility : MonoBehaviour
         
         // 3. 이동속도에 따라 그 방향으로 이동한다.
         _characterController.Move(dir * (MoveSpeed * Time.deltaTime));
+        
     }
 }
