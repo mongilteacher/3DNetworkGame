@@ -17,7 +17,6 @@ public class CharacterMoveAbility : CharacterAbility
     
     private void Update()
     {
-        
         // 순서
         // 1. 사용자의 키보드 입력을 받는다.
         float h = Input.GetAxisRaw("Horizontal");
@@ -30,11 +29,10 @@ public class CharacterMoveAbility : CharacterAbility
         
         _animator.SetFloat("Move", dir.magnitude);
 
-        // 4. 중력 적용하세요.
+        // 3. 중력 적용하세요.
         dir.y = -1f;
         
-        // 3. 이동속도에 따라 그 방향으로 이동한다.
-        _characterController.Move(dir * (Owner.Stat.MoveSpeed * Time.deltaTime));
-        
+        // 4. 이동속도에 따라 그 방향으로 이동한다.
+        _characterController.Move(dir * (_owner.Stat.MoveSpeed * Time.deltaTime));
     }
 }

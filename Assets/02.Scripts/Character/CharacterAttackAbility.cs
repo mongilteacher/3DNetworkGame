@@ -25,7 +25,7 @@ public class CharacterAttackAbility : CharacterAbility
     {
         _attackTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _attackTimer >= Owner.Stat.AttackCoolTime)
+        if (Input.GetMouseButtonDown(0) && _attackTimer >= _owner.Stat.AttackCoolTime)
         {
             _attackTimer = 0f;
             
