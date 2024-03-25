@@ -24,4 +24,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
     {
         Debug.Log("서버 접속 성공");
     }
+    
+    // 포톤 서버 연결 해재 후 호출되는 콜백 함수
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log("서버 연결 해재");
+    }
 }
