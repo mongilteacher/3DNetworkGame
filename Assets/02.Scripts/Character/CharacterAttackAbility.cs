@@ -25,7 +25,8 @@ public class CharacterAttackAbility : CharacterAbility
     {
         _attackTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && _attackTimer >= _owner.Stat.AttackCoolTime)
+        bool haveStamina = _owner.Stat.Stamina >= _owner.Stat.AttackConsumeStamina;
+        if (Input.GetMouseButtonDown(0) && _attackTimer >= _owner.Stat.AttackCoolTime && haveStamina)
         {
             _attackTimer = 0f;
             

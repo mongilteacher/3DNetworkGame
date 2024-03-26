@@ -31,8 +31,19 @@ public class CharacterMoveAbility : CharacterAbility
 
         // 3. 중력 적용하세요.
         dir.y = -1f;
+
+        float moveSpeed = _owner.Stat.MoveSpeed;
+        if (Input.GetKey(KeyCode.LeftShift) && _owner.Stat.Stamina > 0)
+        {
+            moveSpeed = _owner.Stat.RunSpeed;
+            _owner.Stat.Stamina -= Time.deltaTime * _owner.Stat.RunConsumeStamina;
+        }
+        else
+        {
+            _owner.Stat.Stamina += Time.deltaTime * _owner.Stat.RecoveryStamina;
+        }
         
         // 4. 이동속도에 따라 그 방향으로 이동한다.
-        _characterController.Move(dir * (_owner.Stat.MoveSpeed * Time.deltaTime));
+        _characterController.Move(dir * (moveSpeed * Time.deltaTime));
     }
 }
