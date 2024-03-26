@@ -28,6 +28,8 @@ public class CharacterAttackAbility : CharacterAbility
         bool haveStamina = _owner.Stat.Stamina >= _owner.Stat.AttackConsumeStamina;
         if (Input.GetMouseButtonDown(0) && _attackTimer >= _owner.Stat.AttackCoolTime && haveStamina)
         {
+            _owner.Stat.Stamina -= _owner.Stat.AttackConsumeStamina;
+            
             _attackTimer = 0f;
             
             _animator.SetTrigger($"Attack{UnityEngine.Random.Range(1, 4)}");
