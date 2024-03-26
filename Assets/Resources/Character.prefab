@@ -1064,7 +1064,7 @@ MonoBehaviour:
     MoveSpeed: 7
     RunSpeed: 10
     RotationSpeed: 300
-    AttackCoolTime: 1
+    AttackCoolTime: 0.4
     AttackConsumeStamina: 20
 --- !u!114 &4719060971200126703
 MonoBehaviour:
