@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterMoveAbility))]
@@ -8,13 +9,18 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterAttackAbility))]
 public class Character : MonoBehaviour
 {
+    public PhotonView PhotonView { get; private set; }
     public Stat Stat;
 
-    private void Start()
+    private void Awake()
     {
         Stat.Init();
+        
+        PhotonView = GetComponent<PhotonView>();
 
-        UI_CharacterStat.Instance.MyCharacter = this;
-
+        if (PhotonView.IsMine)
+        {
+            UI_CharacterStat.Instance.MyCharacter = this;
+        }
     }
 }
