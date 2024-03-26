@@ -41,6 +41,10 @@ public class CharacterMoveAbility : CharacterAbility
         else
         {
             _owner.Stat.Stamina += Time.deltaTime * _owner.Stat.RecoveryStamina;
+            if (_owner.Stat.Stamina >= _owner.Stat.MaxStamina)
+            {
+                _owner.Stat.Stamina = _owner.Stat.MaxStamina;
+            }
         }
         
         // 4. 이동속도에 따라 그 방향으로 이동한다.
