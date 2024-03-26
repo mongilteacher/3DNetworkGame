@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterMoveAbility))]
 [RequireComponent(typeof(CharacterRotateAbility))]
 [RequireComponent(typeof(CharacterAttackAbility))]
-public class Character : MonoBehaviour, IPunObservable
+public class Character : MonoBehaviour
 {
     public PhotonView PhotonView { get; private set; }
     public Stat Stat;
@@ -30,8 +30,8 @@ public class Character : MonoBehaviour, IPunObservable
     {
         if (!PhotonView.IsMine)
         {
-            transform.position = Vector3.Lerp(transform.position, _receivedPosition, Time.deltaTime * 20f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _receivedRotation, Time.deltaTime * 20f);
+           // transform.position = Vector3.Lerp(transform.position, _receivedPosition, Time.deltaTime * 20f);
+           // transform.rotation = Quaternion.Slerp(transform.rotation, _receivedRotation, Time.deltaTime * 20f);
         }
     }
 
