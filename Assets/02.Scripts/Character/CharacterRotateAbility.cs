@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class CharacterRotateAbility : CharacterAbility
@@ -9,6 +10,12 @@ public class CharacterRotateAbility : CharacterAbility
    
    private float _mx;
    private float _my;
+
+   private void Start()
+   {
+      GameObject.FindWithTag("FollowCamera").GetComponent<CinemachineVirtualCamera>().Follow = CameraRoot;
+   }
+   
    private void Update()
    {
       // 순서
