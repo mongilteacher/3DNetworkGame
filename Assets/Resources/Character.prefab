@@ -1059,6 +1059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stat:
+    Damage: 10
     Health: 100
     MaxHealth: 100
     Stamina: 100
@@ -1091,6 +1092,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 9210157428632069335}
   - {fileID: 1344423677140206314}
+  - {fileID: 150791027343468697}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -3580,10 +3582,6 @@ PrefabInstance:
       value: OHS03Polyart
       objectReference: {fileID: 0}
     - target: {fileID: 8738464927208897348, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8738464927208897348, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3626,8 +3624,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8218668140323578366, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8779132334469235314}
   m_SourcePrefab: {fileID: 100100000, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
+--- !u!1 &1598515500516040391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8218668140323578366, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}
+  m_PrefabInstance: {fileID: 7215191297852211001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8779132334469235314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598515500516040391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567a2913ee5acd1429039b1d34ca9f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCharacterAttackAbility: {fileID: 6267464651303906407}
 --- !u!4 &2118030808744100989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8738464927208897348, guid: f0aae4c8b38e02e48a4124483b105340, type: 3}

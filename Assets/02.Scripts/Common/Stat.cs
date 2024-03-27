@@ -6,6 +6,8 @@ using UnityEngine;
 [Serializable]
 public class Stat
 {
+    public int Damage;
+    
     public int Health;
     public int MaxHealth;
     
