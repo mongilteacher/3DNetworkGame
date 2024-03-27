@@ -18,6 +18,10 @@ public class CharacterAttackAbility : CharacterAbility
     private float _attackTimer = 0;
 
     public Collider WeaponCollider;
+    
+    // 때린 애들을 기억해 놓는 리스트
+    private List<IDamaged> _damagedList = new List<IDamaged>();
+    
 
     private void Start()
     {
@@ -59,11 +63,20 @@ public class CharacterAttackAbility : CharacterAbility
         {
             return;
         }
+        
         // O: 개방 폐쇄 원칙 + 인터페이스 
         // 수정에는 닫혀있고, 확장에는 열려있다.
         IDamaged damagedAbleObject = other.GetComponent<IDamaged>();
         if (damagedAbleObject != null)
         {
+            // 내가 이미 때렸던 애라면 안때리겠다...
+            if (_damagedList.Contains(damagedAbleObject))
+            {
+                return;
+            }
+            // 안 맞은 애면 때린 리스트에 추가
+            _damagedList.Add(damagedAbleObject);
+            
             PhotonView photonView = other.GetComponent<PhotonView>();
             if (photonView != null)
             {
@@ -80,6 +93,7 @@ public class CharacterAttackAbility : CharacterAbility
     public void InactiveCollider()
     {
         WeaponCollider.enabled = false;
+        _damagedList.Clear();
     }
 }
 
