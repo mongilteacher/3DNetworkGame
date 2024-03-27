@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class CharacterAttackAbility : CharacterAbility
@@ -37,7 +38,24 @@ public class CharacterAttackAbility : CharacterAbility
             
             _attackTimer = 0f;
             
-            _animator.SetTrigger($"Attack{UnityEngine.Random.Range(1, 4)}");
+            _owner.PhotonView.RPC(nameof(PlayAttackAnimation), RpcTarget.All, Random.Range(1, 4));
+            // RpcTarget.All     : 모두에게
+            // RpcTarget.Others  : 나 자신을 제외하고 모두에게
+            // RPcTarget.Master  : 방장에게만
         }
     }
+
+    [PunRPC]
+    public void PlayAttackAnimation(int index)
+    {
+        _animator.SetTrigger($"Attack{index}");
+    }
 }
+
+
+
+
+
+
+
+
