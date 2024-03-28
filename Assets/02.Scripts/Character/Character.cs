@@ -57,5 +57,16 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     public void Damaged(int damage)
     {
         Stat.Health -= damage;
+
+        if (PhotonView.IsMine)
+        {
+            // 카메라 흔들기 위해 Impulse를 발생시킨다.
+            CinemachineImpulseSource impulseSource;
+            if (TryGetComponent<CinemachineImpulseSource>(out impulseSource))
+            {
+                float strength = 0.4f;
+                impulseSource.GenerateImpulseWithVelocity(UnityEngine.Random.insideUnitSphere.normalized * strength);
+            }
+        }
     }
 }
