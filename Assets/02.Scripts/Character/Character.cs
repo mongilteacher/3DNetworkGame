@@ -67,6 +67,8 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
                 float strength = 0.4f;
                 impulseSource.GenerateImpulseWithVelocity(UnityEngine.Random.insideUnitSphere.normalized * strength);
             }
+            
+            UI_DamgedEffect.Instance.Show(0.5f);
         }
     }
 }
