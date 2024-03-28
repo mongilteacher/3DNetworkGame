@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterMoveAbility))]
 [RequireComponent(typeof(CharacterRotateAbility))]
 [RequireComponent(typeof(CharacterAttackAbility))]
+[RequireComponent(typeof(CharacterShakeAbility))]
 public class Character : MonoBehaviour, IPunObservable, IDamaged
 {
     public PhotonView PhotonView { get; private set; }
@@ -58,6 +59,8 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     {
         Stat.Health -= damage;
 
+        GetComponent<CharacterShakeAbility>().Shake();
+        
         if (PhotonView.IsMine)
         {
             // 카메라 흔들기 위해 Impulse를 발생시킨다.
@@ -67,6 +70,8 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
                 float strength = 0.4f;
                 impulseSource.GenerateImpulseWithVelocity(UnityEngine.Random.insideUnitSphere.normalized * strength);
             }
+        
+            UI_DamgedEffect.Instance.Show(0.5f);
         }
     }
 }
