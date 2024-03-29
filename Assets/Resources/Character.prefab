@@ -935,6 +935,7 @@ GameObject:
   - component: {fileID: 150791027343468697}
   - component: {fileID: 4297256480879835657}
   - component: {fileID: 2520490422176983203}
+  - component: {fileID: 2951794685150176643}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1122,6 +1123,15 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: Attack3
+  - Type: 9
+    SynchronizeType: 0
+    Name: Death
+  - Type: 9
+    SynchronizeType: 0
+    Name: Live
+  - Type: 9
+    SynchronizeType: 0
+    Name: Motion1
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
@@ -1209,6 +1219,18 @@ MonoBehaviour:
   TargetTransform: {fileID: 1658242287537143129}
   Duration: 0.2
   Strength: 0.2
+--- !u!114 &2951794685150176643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757861667414569714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5541b56af42374e44a27abbccb8be2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2008484050917424317
 GameObject:
   m_ObjectHideFlags: 0
