@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stat:
-    Damage: 10
+    Damage: 40
     Health: 100
     MaxHealth: 100
     Stamina: 100
@@ -1070,7 +1070,7 @@ MonoBehaviour:
     RunSpeed: 10
     RotationSpeed: 300
     AttackCoolTime: 0.4
-    AttackConsumeStamina: 20
+    AttackConsumeStamina: 10
 --- !u!114 &4719060971200126703
 MonoBehaviour:
   m_ObjectHideFlags: 0
