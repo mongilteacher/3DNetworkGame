@@ -3,6 +3,7 @@ using UnityEngine;
 // Photon API를 사용하기 위한 네임스페이스
 using Photon.Pun;
 using Photon.Realtime;
+using Random = UnityEngine.Random;
 
 // 역할: 포톤 서버 연결 관리자
 public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서버 이벤트(콜백 함수)를 받는다.
@@ -87,7 +88,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         Debug.Log($"PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}");
         Debug.Log($"MaxCount: {PhotonNetwork.CurrentRoom.MaxPlayers}");
 
-        PhotonNetwork.Instantiate(nameof(Character), Vector3.zero, Quaternion.identity);
+        Vector3 randomAngle = new Vector3(0, UnityEngine.Random.Range(0, 360), 0);
+        PhotonNetwork.Instantiate(nameof(Character), BattleScene.Instance.GetRandomSpawnPoint(), Quaternion.Euler(randomAngle));
     }
 
     // 방 생성에 실패했을 때 호출되는 콜백 함수
