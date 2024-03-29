@@ -12,6 +12,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
 {
     public PhotonView PhotonView { get; private set; }
     public Stat Stat;
+    public State State { get; private set; } = State.Live;
 
     private void Awake()
     {
@@ -57,21 +58,63 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     [PunRPC]
     public void Damaged(int damage)
     {
+        if (State == State.Death)
+        {
+            return;
+        }
         Stat.Health -= damage;
-
+        if (Stat.Health <= 0)
+        {
+            PhotonView.RPC(nameof(Death), RpcTarget.All);
+        }
+        
         GetComponent<CharacterShakeAbility>().Shake();
         
         if (PhotonView.IsMine)
         {
-            // 카메라 흔들기 위해 Impulse를 발생시킨다.
-            CinemachineImpulseSource impulseSource;
-            if (TryGetComponent<CinemachineImpulseSource>(out impulseSource))
-            {
-                float strength = 0.4f;
-                impulseSource.GenerateImpulseWithVelocity(UnityEngine.Random.insideUnitSphere.normalized * strength);
-            }
-
-            UI_DamgedEffect.Instance.Show(0.5f);
+            OnDamagedMine();
         }
     }
+
+    private void OnDamagedMine()
+    {
+        // 카메라 흔들기 위해 Impulse를 발생시킨다.
+        CinemachineImpulseSource impulseSource;
+        if (TryGetComponent<CinemachineImpulseSource>(out impulseSource))
+        {
+            float strength = 0.4f;
+            impulseSource.GenerateImpulseWithVelocity(UnityEngine.Random.insideUnitSphere.normalized * strength);
+        }
+
+        UI_DamgedEffect.Instance.Show(0.5f);
+    }
+
+    [PunRPC]
+    private void Death()
+    {
+        State = State.Death;
+        
+        GetComponent<Animator>().SetTrigger("Death");
+        GetComponent<CharacterAttackAbility>().InactiveCollider();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
