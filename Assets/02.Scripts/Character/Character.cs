@@ -62,6 +62,12 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     }
 
     [PunRPC]
+    public void AddLog(string logMessage)
+    {
+        UI_RoomInfo.Instance.AddLog(logMessage);
+    }
+    
+    [PunRPC]
     public void Damaged(int damage, int actorNumber)
     {
         if (State == State.Death)
@@ -72,19 +78,11 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         if (Stat.Health <= 0)
         {
             State = State.Death;
-            
-            if (actorNumber >= 0)
+
+            if (PhotonView.IsMine)
             {
-                string nickname = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber).NickName;
-                string logMessage = $"{nickname}님이 {PhotonView.Owner.NickName}을 처치하였습니다.";
-                UI_RoomInfo.Instance.AddLog(logMessage);
+                OnDeath(actorNumber);
             }
-            else
-            {
-                string logMessage = $"{PhotonView.Owner.NickName}이 운명을 다했습니다.";
-                UI_RoomInfo.Instance.AddLog(logMessage);
-            }
-    
             
             PhotonView.RPC(nameof(Death), RpcTarget.All);
         }
@@ -94,6 +92,21 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         if (PhotonView.IsMine)
         {
             OnDamagedMine();
+        }
+    }
+
+    private void OnDeath(int actorNumber)
+    {
+        if (actorNumber >= 0)
+        {
+            string nickname = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber).NickName;
+            string logMessage = $"\n{nickname}님이 {PhotonView.Owner.NickName}을 처치하였습니다.";
+            PhotonView.RPC(nameof(AddLog), RpcTarget.All, logMessage);
+        }
+        else
+        {
+            string logMessage = $"\n{PhotonView.Owner.NickName}이 운명을 다했습니다.";
+            PhotonView.RPC(nameof(AddLog), RpcTarget.All, logMessage);
         }
     }
 
