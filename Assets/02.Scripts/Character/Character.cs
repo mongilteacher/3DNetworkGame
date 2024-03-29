@@ -65,6 +65,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         Stat.Health -= damage;
         if (Stat.Health <= 0)
         {
+            State = State.Death;
             PhotonView.RPC(nameof(Death), RpcTarget.All);
         }
         
