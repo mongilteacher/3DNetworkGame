@@ -14,6 +14,9 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     public Stat Stat;
     public State State { get; private set; } = State.Live;
 
+    private Vector3 _receivedPosition;
+    private Quaternion _receivedRotation;
+    
     private void Awake()
     {
         Stat.Init();
@@ -25,9 +28,12 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
             UI_CharacterStat.Instance.MyCharacter = this;
         }
     }
-
-    private Vector3 _receivedPosition;
-    private Quaternion _receivedRotation;
+    
+    private void Start()
+    {
+        SetRandomPositionAndRotation();
+    }
+    
     private void Update()
     {
         if (!PhotonView.IsMine)
@@ -111,8 +117,19 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
 
         PhotonView.RPC(nameof(Live), RpcTarget.All);
         
-        transform.position = BattleScene.Instance.GetRandomSpawnPoint();
+        SetRandomPositionAndRotation();
     }
+
+    private void SetRandomPositionAndRotation()
+    {
+        Vector3 spawnPoint = BattleScene.Instance.GetRandomSpawnPoint();
+        GetComponent<CharacterMoveAbility>().Teleport(spawnPoint);
+        GetComponent<CharacterRotateAbility>().SetRandomRotation();
+    }
+
+    
+    
+    
 
     [PunRPC]
     private void Live()

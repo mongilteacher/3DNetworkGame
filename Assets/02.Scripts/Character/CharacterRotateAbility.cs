@@ -39,4 +39,10 @@ public class CharacterRotateAbility : CharacterAbility
       transform.eulerAngles  = new Vector3(0, _mx, 0f);
       CameraRoot.localEulerAngles = new Vector3(-_my, 0, 0f);
    }
+
+   public void SetRandomRotation()
+   {
+      _mx = UnityEngine.Random.Range(0, 360);
+      _my = 0;
+   }
 }
