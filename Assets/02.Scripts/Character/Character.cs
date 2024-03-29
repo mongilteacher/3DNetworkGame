@@ -62,7 +62,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     }
 
     [PunRPC]
-    public void Damaged(int damage)
+    public void Damaged(int damage, int actorNumber)
     {
         if (State == State.Death)
         {
@@ -72,6 +72,20 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         if (Stat.Health <= 0)
         {
             State = State.Death;
+            
+            if (actorNumber >= 0)
+            {
+                string nickname = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber).NickName;
+                string logMessage = $"{nickname}님이 {PhotonView.Owner.NickName}을 처치하였습니다.";
+                UI_RoomInfo.Instance.AddLog(logMessage);
+            }
+            else
+            {
+                string logMessage = $"{PhotonView.Owner.NickName}이 운명을 다했습니다.";
+                UI_RoomInfo.Instance.AddLog(logMessage);
+            }
+    
+            
             PhotonView.RPC(nameof(Death), RpcTarget.All);
         }
         

@@ -83,7 +83,7 @@ public class CharacterAttackAbility : CharacterAbility
                 // 피격 이펙트 생성
                 Vector3 hitPosition = (transform.position + other.transform.position) / 2f + new Vector3(0f, 1f);
                 PhotonNetwork.Instantiate("HitEffect", hitPosition, Quaternion.identity);
-                photonView.RPC("Damaged", RpcTarget.All, _owner.Stat.Damage);
+                photonView.RPC("Damaged", RpcTarget.All, _owner.Stat.Damage, _owner.PhotonView.OwnerActorNr);
             }
             //damagedAbleObject.Damaged(_owner.Stat.Damage);
         }
