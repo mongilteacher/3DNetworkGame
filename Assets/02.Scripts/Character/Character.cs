@@ -77,8 +77,6 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         Stat.Health -= damage;
         if (Stat.Health <= 0)
         {
-            State = State.Death;
-
             if (PhotonView.IsMine)
             {
                 OnDeath(actorNumber);
@@ -126,6 +124,11 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     [PunRPC]
     private void Death()
     {
+        if (State == State.Death)
+        {
+            return;
+        }
+        
         State = State.Death;
         
         GetComponent<Animator>().SetTrigger("Death");
@@ -134,9 +137,10 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         // 죽고나서 5초후 리스폰
         if (PhotonView.IsMine)
         {
-            Vector3 dropPosition = transform.position + new Vector3(0f, 0.5f, 0);
-            PhotonNetwork.Instantiate(ItemType.HealthPotion.ToString(), dropPosition, Quaternion.identity);
-            PhotonNetwork.Instantiate(ItemType.StaminaPotion.ToString(), dropPosition, Quaternion.identity);
+            Vector3 dropPosition1 = transform.position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
+            Vector3 dropPosition2 = transform.position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
+            PhotonNetwork.Instantiate(ItemType.HealthPotion.ToString(), dropPosition1, Quaternion.identity);
+            PhotonNetwork.Instantiate(ItemType.StaminaPotion.ToString(), dropPosition2, Quaternion.identity);
             
             StartCoroutine(Death_Coroutine());
         }

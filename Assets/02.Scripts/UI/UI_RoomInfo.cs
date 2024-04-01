@@ -17,8 +17,6 @@ public class UI_RoomInfo : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
-        
-        Cursor.lockState = (CursorLockMode.Locked);
     }
     
     public override void OnJoinedRoom()
