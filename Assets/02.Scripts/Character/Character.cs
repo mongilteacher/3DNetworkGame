@@ -134,6 +134,10 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         // 죽고나서 5초후 리스폰
         if (PhotonView.IsMine)
         {
+            Vector3 dropPosition = transform.position + new Vector3(0f, 0.5f, 0);
+            PhotonNetwork.Instantiate(ItemType.HealthPotion.ToString(), dropPosition, Quaternion.identity);
+            PhotonNetwork.Instantiate(ItemType.StaminaPotion.ToString(), dropPosition, Quaternion.identity);
+            
             StartCoroutine(Death_Coroutine());
         }
     }
