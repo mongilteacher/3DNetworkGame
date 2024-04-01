@@ -4633,8 +4633,8 @@ GameObject:
   m_Component:
   - component: {fileID: 509974622}
   - component: {fileID: 509974623}
-  - component: {fileID: 509974625}
-  - component: {fileID: 509974624}
+  - component: {fileID: 509974626}
+  - component: {fileID: 509974627}
   m_Layer: 0
   m_Name: BattleScene
   m_TagString: Untagged
@@ -4683,7 +4683,7 @@ MonoBehaviour:
   - {fileID: 1282101950}
   - {fileID: 1361843109}
   - {fileID: 113695160}
---- !u!114 &509974624
+--- !u!114 &509974626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4695,7 +4695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a54dcfbc914eca419f14d9dd16a1294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &509974625
+--- !u!114 &509974627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
