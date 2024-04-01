@@ -137,13 +137,19 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         // 죽고나서 5초후 리스폰
         if (PhotonView.IsMine)
         {
-            Vector3 dropPosition1 = transform.position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
-            Vector3 dropPosition2 = transform.position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
-            PhotonNetwork.Instantiate(ItemType.HealthPotion.ToString(), dropPosition1, Quaternion.identity);
-            PhotonNetwork.Instantiate(ItemType.StaminaPotion.ToString(), dropPosition2, Quaternion.identity);
+            PhotonView.RPC(nameof(MakeItem), RpcTarget.MasterClient, transform.position);
             
             StartCoroutine(Death_Coroutine());
         }
+    }
+
+    [PunRPC]
+    private void MakeItem(Vector3 position)
+    {
+        Vector3 dropPosition1 = position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
+        Vector3 dropPosition2 = position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
+        PhotonNetwork.InstantiateRoomObject(ItemType.HealthPotion.ToString(), dropPosition1, Quaternion.identity);
+        PhotonNetwork.InstantiateRoomObject(ItemType.StaminaPotion.ToString(), dropPosition2, Quaternion.identity);
     }
 
     private IEnumerator Death_Coroutine()
