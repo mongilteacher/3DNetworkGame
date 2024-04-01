@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class CharacterMoveAbility : CharacterAbility
 {
+    public bool IsJumping => !_characterController.isGrounded;
+    
     // 목표: [W],[A],[S],[D] 및 방향키를 누르면 캐릭터를 그 뱡향으로 이동시키고 싶다.
     private CharacterController _characterController;
     private Animator _animator;

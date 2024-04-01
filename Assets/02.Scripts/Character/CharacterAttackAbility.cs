@@ -44,7 +44,14 @@ public class CharacterAttackAbility : CharacterAbility
             
             _attackTimer = 0f;
             
-            _owner.PhotonView.RPC(nameof(PlayAttackAnimation), RpcTarget.All, Random.Range(1, 4));
+            if (GetComponent<CharacterMoveAbility>().IsJumping)
+            {
+                _owner.PhotonView.RPC(nameof(PlayAttackAnimation), RpcTarget.All, 4);
+            }
+            else
+            {
+                _owner.PhotonView.RPC(nameof(PlayAttackAnimation), RpcTarget.All, Random.Range(1, 4));
+            }
             // RpcTarget.All     : 모두에게
             // RpcTarget.Others  : 나 자신을 제외하고 모두에게
             // RPcTarget.Master  : 방장에게만
