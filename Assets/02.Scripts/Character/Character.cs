@@ -137,21 +137,14 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         // 죽고나서 5초후 리스폰
         if (PhotonView.IsMine)
         {
-            PhotonView.RPC(nameof(MakeItem), RpcTarget.MasterClient, transform.position);
+            // 팩토리패턴: 객체 생성과 사용 로직을 분리해서 캡슐화하는 패턴
+            ItemObjectFactory.Instance.RequestCreate(ItemType.HealthPotion, transform.position);
+            ItemObjectFactory.Instance.RequestCreate(ItemType.StaminaPotion, transform.position);
             
             StartCoroutine(Death_Coroutine());
         }
     }
-
-    [PunRPC]
-    private void MakeItem(Vector3 position)
-    {
-        Vector3 dropPosition1 = position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
-        Vector3 dropPosition2 = position + new Vector3(0, 0.5f, 0f) + UnityEngine.Random.insideUnitSphere;
-        PhotonNetwork.InstantiateRoomObject(ItemType.HealthPotion.ToString(), dropPosition1, Quaternion.identity);
-        PhotonNetwork.InstantiateRoomObject(ItemType.StaminaPotion.ToString(), dropPosition2, Quaternion.identity);
-    }
-
+    
     private IEnumerator Death_Coroutine()
     {
         yield return new WaitForSeconds(5f);

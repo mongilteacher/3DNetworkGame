@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(Collider))]
-public class ItemObject : MonoBehaviour
+public class ItemObject : MonoBehaviourPun
 {
     [Header("아이템 타입")]
     public ItemType ItemType;
@@ -42,6 +42,9 @@ public class ItemObject : MonoBehaviour
                     break;
                 }
             }
+            
+            gameObject.SetActive(false);
+            ItemObjectFactory.Instance.RequestDelete(photonView.ViewID);
         }
     }
 }
