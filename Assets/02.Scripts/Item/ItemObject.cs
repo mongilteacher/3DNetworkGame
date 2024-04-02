@@ -10,6 +10,21 @@ public class ItemObject : MonoBehaviourPun
     public ItemType ItemType;
     public float Value = 100;
 
+    private void Start()
+    {
+        if (photonView.IsMine)
+        {
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            Vector3 randomVector = UnityEngine.Random.insideUnitSphere;
+            randomVector.y = 1f;
+            randomVector.Normalize();
+            randomVector *= UnityEngine.Random.Range(3, 7f);
+            rigidbody.AddForce(randomVector, ForceMode.Impulse);
+            rigidbody.AddTorque(randomVector, ForceMode.Impulse);
+        }
+    }
+    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

@@ -1073,6 +1073,7 @@ MonoBehaviour:
     AttackConsumeStamina: 10
     JumpPower: 3
     JumpConsumStamina: 10
+  Score: 0
 --- !u!114 &4719060971200126703
 MonoBehaviour:
   m_ObjectHideFlags: 0

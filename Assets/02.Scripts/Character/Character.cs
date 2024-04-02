@@ -153,7 +153,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         int randomValue = UnityEngine.Random.Range(0, 100);
         if (randomValue > 30)      // 70%
         {
-            int randomCount = UnityEngine.Random.Range(3, 6);
+            int randomCount = UnityEngine.Random.Range(10, 30);
             for (int i = 0; i < randomCount; ++i)
             {
                 ItemObjectFactory.Instance.RequestCreate(ItemType.ScoreStone, transform.position);
