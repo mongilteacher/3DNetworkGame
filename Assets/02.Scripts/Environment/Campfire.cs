@@ -33,7 +33,7 @@ public class Campfire : MonoBehaviour
         {
             return;
         }
-
+        
         _timer += Time.deltaTime;
         if (_timer >= Cooltime)
         {
