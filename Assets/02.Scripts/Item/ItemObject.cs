@@ -35,6 +35,8 @@ public class ItemObject : MonoBehaviourPun
                 return;
             }
 
+            character.GetComponent<CharacterEffectAbility>().RequestPlay((int)ItemType);
+            
             switch (ItemType)
             {
                 case ItemType.HealthPotion:
