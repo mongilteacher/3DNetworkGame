@@ -11,6 +11,11 @@ public class ItemObjectFactory : MonoBehaviourPun
         Instance = this;
     }
 
+    private void Start()
+    {
+        Debug.LogError($"viewID: {photonView.ViewID}");
+    }
+
     public void RequestCreate(ItemType type, Vector3 position)
     {
         if (PhotonNetwork.IsMasterClient)
@@ -45,7 +50,7 @@ public class ItemObjectFactory : MonoBehaviourPun
     [PunRPC]
     private void Delete(int viewID)
     {
-        GameObject objectToDelete = PhotonView.Find(viewID).gameObject;
+        GameObject objectToDelete = PhotonView.Find(viewID)?.gameObject;
         if (objectToDelete != null)
         {
             PhotonNetwork.Destroy(objectToDelete);

@@ -41,6 +41,12 @@ public class ItemObject : MonoBehaviourPun
                     }
                     break;
                 }
+
+                case ItemType.ScoreStone:
+                {
+                    character.Score += (int)Value;
+                    break;
+                }
             }
             
             gameObject.SetActive(false);
