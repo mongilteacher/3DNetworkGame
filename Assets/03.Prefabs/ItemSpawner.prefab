@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinCreateTime: 10
   MaxCreateTime: 50
-  MinCreateCount: 10
+  MinCreateCount: 1
   MaxCreateCount: 10
   _items: []

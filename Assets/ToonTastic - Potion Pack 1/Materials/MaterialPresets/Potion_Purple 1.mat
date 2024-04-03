@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Potion_Purple
+  m_Name: Potion_Purple 1
   m_Shader: {fileID: 4800000, guid: f99852a3460f1fd4a95553849ff3acc3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -85,7 +85,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.07028256, b: 0, a: 1}
-    - _Colour: {r: 0.85098046, g: 0.12941177, b: 0.54901963, a: 1}
+    - _Colour: {r: 1, g: 0.7490196, b: 0, a: 1}
     - _EmissionColor: {r: 1, g: 0.30884862, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.5188679, g: 0.23113936, b: 0.031327844, a: 1}

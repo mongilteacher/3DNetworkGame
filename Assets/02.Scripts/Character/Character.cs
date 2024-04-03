@@ -156,7 +156,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
             int randomCount = UnityEngine.Random.Range(10, 30);
             for (int i = 0; i < randomCount; ++i)
             {
-                ItemObjectFactory.Instance.RequestCreate(ItemType.ScoreStone, transform.position);
+                ItemObjectFactory.Instance.RequestCreate(ItemType.ScoreStone100, transform.position);
             }
         }
         else if (randomValue > 10) // 20%

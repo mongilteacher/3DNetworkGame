@@ -5,7 +5,7 @@ using UnityEngine;
 public class Campfire : MonoBehaviour
 {
     public int Damage     = 20;
-    public float Cooltime = 1f;
+    public float Cooltime = 0.6f;
     private float _timer  = 0f;
 
     private IDamaged _target = null;
@@ -25,6 +25,8 @@ public class Campfire : MonoBehaviour
         }
 
         _target = damagedObject;
+        
+        _target.Damaged(Damage, -1);
     }
     
     private void OnTriggerStay(Collider col)
@@ -32,6 +34,15 @@ public class Campfire : MonoBehaviour
         if (_target == null)
         {
             return;
+        }
+
+        if (col.TryGetComponent<Character>(out Character character))
+        {
+            if (character.State == State.Death)
+            {
+                _target = null;
+                return;
+            }
         }
         
         _timer += Time.deltaTime;

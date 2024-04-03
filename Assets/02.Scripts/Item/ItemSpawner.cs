@@ -30,7 +30,6 @@ public class ItemSpawner : MonoBehaviour
             return;
         }
 
-        Debug.LogError(1234);
         
         // 구현 순서
         // 1. 시간이 흐르다가
@@ -50,8 +49,26 @@ public class ItemSpawner : MonoBehaviour
             // 4. 랜덤한 근처 위치에 생성한다.
             Vector3 randomPosition = new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10));
             randomPosition += transform.position;
-            
-            ItemObject itemObject = ItemObjectFactory.Instance.MasterCreate(ItemType.ScoreStone, randomPosition);
+
+            int random = UnityEngine.Random.Range(0, 22);
+            ItemType itemType = ItemType.ScoreStone30;
+            switch (random)
+            {
+                case 9:
+                    itemType = ItemType.ScoreStone100;
+                    break;
+                case 8:
+                    itemType = ItemType.ScoreStone50;
+                    break;
+                case 7:
+                    itemType = ItemType.StaminaPotion;
+                    break;
+                case 6:
+                    itemType = ItemType.HealthPotion;
+                    break;
+            }
+         
+            ItemObject itemObject = ItemObjectFactory.Instance.MasterCreate(itemType, randomPosition);
             _items.Add(itemObject);
             itemObject.transform.SetParent(transform);
             
