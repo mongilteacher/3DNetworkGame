@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 8115260626521743092}
   - component: {fileID: 8803431437025228340}
   - component: {fileID: 425288493734018758}
+  - component: {fileID: 2242211386190658743}
   m_Layer: 0
   m_Name: ScoreStone
   m_TagString: Untagged
@@ -160,7 +161,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 2242211386190658743}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -226,6 +228,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.42700174, y: 0.7, z: 0.4866912}
   m_Center: {x: 0, y: 0.099999994, z: 0}
+--- !u!114 &2242211386190658743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952058838459727511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 0
 --- !u!1 &6530209189967831051
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,8 @@ public class ItemSpawner : MonoBehaviour
         {
             return;
         }
+
+        Debug.LogError(1234);
         
         // 구현 순서
         // 1. 시간이 흐르다가
