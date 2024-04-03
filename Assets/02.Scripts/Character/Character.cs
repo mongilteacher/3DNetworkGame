@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using UnityEngine;
+using System;
+using System.Collections;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 [RequireComponent(typeof(CharacterMoveAbility))]
 [RequireComponent(typeof(CharacterRotateAbility))]
@@ -32,7 +34,26 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     private void Start()
     {
         SetRandomPositionAndRotation();
+        
+        /*[해쉬테이블]
+        ㄴ int Score     = 0;  
+        ㄴ int KillCount = 0;
+        ㄴ. 캐릭터.커스텀 프로퍼티 = 해쉬테이블<string, object>*/
+        ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
+        hashtable.Add("Score", 0);
+        hashtable.Add("KillCount", 0);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
+
+    public void AddScore(int score)
+    {
+        Hashtable myHashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+        myHashtable["Score"] = (int)myHashtable["Score"] + score;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(myHashtable);
+    }
+    
+    
+    
     
     private void Update()
     {

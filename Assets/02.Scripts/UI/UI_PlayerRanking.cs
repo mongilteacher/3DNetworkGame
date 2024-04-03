@@ -21,6 +21,12 @@ public class UI_PlayerRanking : MonoBehaviourPunCallbacks
     {
         Refresh();
     }
+    // 플레이어의 커스텀 프로퍼티가 변경되면 호출되는 함수
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        Refresh();
+    }
+    
     public override void OnJoinedRoom()
     {
         Refresh();
