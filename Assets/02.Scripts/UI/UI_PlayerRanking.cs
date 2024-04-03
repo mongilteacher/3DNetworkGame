@@ -41,6 +41,8 @@ public class UI_PlayerRanking : MonoBehaviourPunCallbacks
             Slots[i].gameObject.SetActive(true);
             Slots[i].Set(playerList[i]);
         }
+        
+        MySlot.Set(PhotonNetwork.LocalPlayer);
     }
     
 }
