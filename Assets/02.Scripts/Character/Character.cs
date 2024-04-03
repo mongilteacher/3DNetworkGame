@@ -33,6 +33,11 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     
     private void Start()
     {
+        if (!PhotonView.IsMine)
+        {
+            return;
+        }
+        
         SetRandomPositionAndRotation();
         
         /*[해쉬테이블]
