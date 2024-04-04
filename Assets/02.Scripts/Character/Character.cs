@@ -145,6 +145,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
             PhotonView.RPC(nameof(AddLog), RpcTarget.All, logMessage);
             
             Player targetPlayer = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber);
+            Debug.Log(_halfScore);
             PhotonView.RPC(nameof(AddPropertyIntValue), targetPlayer, "Score", _halfScore);
             PhotonView.RPC(nameof(AddPropertyIntValue), targetPlayer, "KillCount", 1);
         }

@@ -12,10 +12,13 @@ public class CharacterMotionAbility : CharacterAbility
         {
             return;
         }
-        
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+
+        for (int i = 49; i <= 57; i++)
         {
-            _owner.PhotonView.RPC(nameof(PlayMotion), RpcTarget.All, 1);
+            if (Input.GetKeyDown((KeyCode)i))
+            {
+                _owner.PhotonView.RPC(nameof(PlayMotion), RpcTarget.All, i - 49 + 1);
+            }
         }
     }
 
