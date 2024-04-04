@@ -4,6 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 using System;
 using System.Collections;
+using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 [RequireComponent(typeof(CharacterMoveAbility))]
@@ -18,6 +19,8 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
 
     private Vector3 _receivedPosition;
     private Quaternion _receivedRotation;
+
+    private int _halfScore;
     
     private void Awake()
     {
@@ -50,13 +53,24 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
 
-    public void AddScore(int score)
+    [PunRPC]
+    public void AddPropertyIntValue(string key, int value)
     {
         Hashtable myHashtable = PhotonNetwork.LocalPlayer.CustomProperties;
-        myHashtable["Score"] = (int)myHashtable["Score"] + score;
+        myHashtable[key] = (int)myHashtable[key] + value;
         PhotonNetwork.LocalPlayer.SetCustomProperties(myHashtable);
     }
-    
+    public void SetPropertyIntValue(string key, int value)
+    {
+        Hashtable myHashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+        myHashtable[key] = value;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(myHashtable);
+    }
+    public int GetPropertyIntValue(string key)
+    {
+        Hashtable myHashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+        return (int)myHashtable[key];
+    }
     
     
     
@@ -121,11 +135,18 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
 
     private void OnDeath(int actorNumber)
     {
+        _halfScore = GetPropertyIntValue("Score");
+        SetPropertyIntValue("Score", 0);
+        
         if (actorNumber >= 0)
         {
             string nickname = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber).NickName;
             string logMessage = $"\n{nickname}님이 {PhotonView.Owner.NickName}을 처치하였습니다.";
             PhotonView.RPC(nameof(AddLog), RpcTarget.All, logMessage);
+            
+            Player targetPlayer = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber);
+            PhotonView.RPC(nameof(AddPropertyIntValue), targetPlayer, "Score", _halfScore);
+            PhotonView.RPC(nameof(AddPropertyIntValue), targetPlayer, "KillCount", 1);
         }
         else
         {
@@ -179,7 +200,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         int randomValue = UnityEngine.Random.Range(0, 100);
         if (randomValue > 30)      // 70%
         {
-            int randomCount = UnityEngine.Random.Range(10, 30);
+            int randomCount = _halfScore / 100;
             for (int i = 0; i < randomCount; ++i)
             {
                 ItemObjectFactory.Instance.RequestCreate(ItemType.ScoreStone100, transform.position);

@@ -64,7 +64,7 @@ public class ItemObject : MonoBehaviourPun
                 case ItemType.ScoreStone30:
                 {
                     //character.Score += (int)Value;
-                    character.AddScore((int)Value);
+                    character.AddPropertyIntValue("Score", (int)Value);
                     break;
                 }
             }
