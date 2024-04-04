@@ -1047,6 +1047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponCollider: {fileID: 4622900757983831060}
+  WeaponObject: {fileID: 1598515500516040391}
 --- !u!114 &9210157428632069335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,6 +1140,24 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: Attack4
+  - Type: 9
+    SynchronizeType: 0
+    Name: Motion2
+  - Type: 9
+    SynchronizeType: 0
+    Name: Motion3
+  - Type: 9
+    SynchronizeType: 0
+    Name: Motion4
+  - Type: 9
+    SynchronizeType: 0
+    Name: Motion5
+  - Type: 9
+    SynchronizeType: 0
+    Name: Motion6
+  - Type: 9
+    SynchronizeType: 0
+    Name: Motion7
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
@@ -1156,7 +1175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
 --- !u!114 &4297256480879835657
 MonoBehaviour:
