@@ -107,13 +107,8 @@ public class Bear : MonoBehaviour
         }
         
         // 그러다가.. [플레이어]가 [감지 범위]안에 들어오면 플레이어 (추적 상태로 전이)
-        if (_targetCharacter == null)
-        {
-            return;
-        }
-        Vector3 targetPosition = _targetCharacter.transform.position;
-        Vector3 myPosition    = transform.position;
-        if (Vector3.Distance(targetPosition, myPosition) <= TraceDetectRange)
+        _targetCharacter = FindTarget(TraceDetectRange);
+        if (_targetCharacter != null)
         {
             _state = BearState.Trace;
             MyAnimatior.Play("Run");
@@ -133,22 +128,16 @@ public class Bear : MonoBehaviour
         Agent.stoppingDistance = 0f;
         
         // IF [플레이어]가 [감지 범위]안에 들어오면 플레이어 (추적 상태로 전이)
-        Vector3 myPosition = transform.position;
+        _targetCharacter = FindTarget(TraceDetectRange);
         if (_targetCharacter != null)
         {
-            Vector3 targetPosition = _targetCharacter.transform.position;
-
-            if (Vector3.Distance(targetPosition, myPosition) <= TraceDetectRange)
-            {
-                _state = BearState.Trace;
-                MyAnimatior.Play("Run");
-                Debug.Log("Patrol -> Trace");
-            }
+            _state = BearState.Trace;
+            MyAnimatior.Play("Run");
+            Debug.Log("Patrol -> Trace");
         }
-       
         
         // IF [패트롤 구역]에 도착하면 (복귀 상태로 전이)
-        if (Vector3.Distance(PatrolDestination.position, myPosition) <= 0.1f)
+        if (!Agent.pathPending && Agent.remainingDistance <= 0.1f)
         {
             _state = BearState.Return;
             MyAnimatior.Play("Run");
@@ -168,6 +157,22 @@ public class Bear : MonoBehaviour
             MyAnimatior.Play("Idle");
             Debug.Log("Return -> Idle");
         }
+    }
+
+
+    // 나와의 거리가 distance보다 짧은 플레이어를 반환
+    private Character FindTarget(float distance)
+    {
+        Vector3 myPosition = transform.position;
+        foreach (Character character in _characterList)
+        {
+            if (Vector3.Distance(character.transform.position, myPosition) <= distance)
+            {
+                return character;
+            }
+        }
+
+        return null;
     }
 }
 
