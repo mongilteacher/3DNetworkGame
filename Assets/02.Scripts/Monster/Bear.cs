@@ -33,11 +33,16 @@ public class Bear : MonoBehaviour
     
     // [Patrol]
     public Transform PatrolDestination;
+    
+    // [Return]
+    private Vector3 _startPosition;
 
 
     private void Start()
     {
         Agent.speed = Stat.MoveSpeed;
+        
+        _startPosition = transform.position;
     }
     
     // 매 프레임마다 해당 상태별로 정해진 행동을 한다.
@@ -60,6 +65,12 @@ public class Bear : MonoBehaviour
             case BearState.Patrol:
             {
                 Patrol();
+                break;
+            }
+
+            case BearState.Return:
+            {
+                Return();
                 break;
             }
         }
@@ -115,7 +126,6 @@ public class Bear : MonoBehaviour
                 MyAnimatior.Play("Run");
                 Debug.Log("Patrol -> Trace");
             }
-
         }
        
         
@@ -124,6 +134,21 @@ public class Bear : MonoBehaviour
         {
             _state = BearState.Return;
             MyAnimatior.Play("Run");
+            Debug.Log("Patrol -> Return");
+        }
+    }
+
+    private void Return()
+    {
+        // [시작 위치]까지 간다.
+        Agent.destination = _startPosition;
+        Agent.stoppingDistance = 0f;
+        
+        Vector3 myPosition = transform.position;
+        if (Vector3.Distance(_startPosition, myPosition) <= 0.1f)
+        {
+            _state = BearState.Idle;
+            MyAnimatior.Play("Idle");
             Debug.Log("Patrol -> Return");
         }
     }
