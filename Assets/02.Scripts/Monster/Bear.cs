@@ -144,12 +144,11 @@ public class Bear : MonoBehaviour
         Agent.destination = _startPosition;
         Agent.stoppingDistance = 0f;
         
-        Vector3 myPosition = transform.position;
-        if (Vector3.Distance(_startPosition, myPosition) <= 0.1f)
+        if (!Agent.pathPending && Agent.remainingDistance <= 0.1f)
         {
             _state = BearState.Idle;
             MyAnimatior.Play("Idle");
-            Debug.Log("Patrol -> Return");
+            Debug.Log("Return -> Idle");
         }
     }
 }
