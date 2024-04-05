@@ -15,6 +15,8 @@ public class Bear : MonoBehaviour
         Trace,
         Return,
         Attack,
+        Hit,
+        Death,
     }
 
     private BearState _state = BearState.Idle;
