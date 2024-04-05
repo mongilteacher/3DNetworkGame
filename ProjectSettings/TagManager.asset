@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FollowCamera
   - BearSpawnPoint
+  - PatrolPoint
   layers:
   - Default
   - TransparentFX

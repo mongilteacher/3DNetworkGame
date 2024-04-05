@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
@@ -116,6 +117,7 @@ public class Bear : MonoBehaviour
         if (_idleTime >= IdleMaxTime)
         {
             _idleTime = 0f;
+            SetRandomPatrolDestination();
             _state = BearState.Patrol;
             RequestPlayAnimation("Run");
             Debug.Log("Idle -> Patrol");
@@ -125,6 +127,8 @@ public class Bear : MonoBehaviour
         _targetCharacter = FindTarget(TraceDetectRange);
         if (_targetCharacter != null)
         {
+            _startPosition = transform.position;
+            SetRandomPatrolDestination();
             _state = BearState.Trace;
             RequestPlayAnimation("Run");
             Debug.Log("Idle -> Trace");
@@ -197,8 +201,10 @@ public class Bear : MonoBehaviour
         Agent.destination = _targetCharacter.transform.position;
         if (_targetCharacter.State == State.Death || GetDistance(_targetCharacter.transform) > TraceDetectRange)
         {
-            Debug.Log("Trace -> Return");
-            _state = BearState.Return;
+            Debug.Log("Trace -> Patrol");
+            _startPosition = transform.position;
+            SetRandomPatrolDestination();
+            _state = BearState.Patrol;
             return;
         }
         
@@ -226,7 +232,8 @@ public class Bear : MonoBehaviour
             Debug.Log("Trace -> Return");
             Agent.isStopped = false;
             _startPosition = transform.position;
-            _state = BearState.Idle;
+            SetRandomPatrolDestination();
+            _state = BearState.Trace;
             return;
         }
 
@@ -338,7 +345,13 @@ public class Bear : MonoBehaviour
     {
         MyAnimatior.Play(animationName);
     }
-    
+
+
+    private void SetRandomPatrolDestination()
+    {
+        List<GameObject> randomPoints = GameObject.FindGameObjectsWithTag("PatrolPoint").ToList();
+        PatrolDestination = randomPoints[UnityEngine.Random.Range(0, randomPoints.Count)].transform;
+    }
 }
 
 
