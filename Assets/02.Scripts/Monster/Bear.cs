@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Bear : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Bear : MonoBehaviour
     private BearState _state = BearState.Idle;
 
     public Animator MyAnimatior;
+    public NavMeshAgent Agent;
     
     private Character _targetCharacter;
 
@@ -31,7 +33,12 @@ public class Bear : MonoBehaviour
     
     // [Patrol]
     public Transform PatrolDestination;
-    
+
+
+    private void Start()
+    {
+        Agent.speed = Stat.MoveSpeed;
+    }
     
     // 매 프레임마다 해당 상태별로 정해진 행동을 한다.
     private void Update()
@@ -93,21 +100,24 @@ public class Bear : MonoBehaviour
         }
         
         // [패트롤 구역]까지 간다.
-        // todo: 네비게이션
+        Agent.destination = PatrolDestination.position;
+        Agent.stoppingDistance = 0f;
         
         // IF [플레이어]가 [감지 범위]안에 들어오면 플레이어 (추적 상태로 전이)
-        if (_targetCharacter == null)
+        Vector3 myPosition = transform.position;
+        if (_targetCharacter != null)
         {
-            return;
+            Vector3 targetPosition = _targetCharacter.transform.position;
+
+            if (Vector3.Distance(targetPosition, myPosition) <= TraceDetectRange)
+            {
+                _state = BearState.Trace;
+                MyAnimatior.Play("Run");
+                Debug.Log("Patrol -> Trace");
+            }
+
         }
-        Vector3 targetPosition = _targetCharacter.transform.position;
-        Vector3 myPosition    = transform.position;
-        if (Vector3.Distance(targetPosition, myPosition) <= TraceDetectRange)
-        {
-            _state = BearState.Trace;
-            MyAnimatior.Play("Run");
-            Debug.Log("Patrol -> Trace");
-        }
+       
         
         // IF [패트롤 구역]에 도착하면 (복귀 상태로 전이)
         if (Vector3.Distance(PatrolDestination.position, myPosition) <= 0.1f)
