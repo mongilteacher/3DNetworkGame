@@ -21,7 +21,9 @@ public class Bear : MonoBehaviour
 
     public Animator MyAnimatior;
     public NavMeshAgent Agent;
-    
+
+    private List<Character> _characterList = new List<Character>();
+    public SphereCollider CharacterDetectCollider;
     private Character _targetCharacter;
 
     public Stat Stat;
@@ -43,7 +45,23 @@ public class Bear : MonoBehaviour
         Agent.speed = Stat.MoveSpeed;
         
         _startPosition = transform.position;
+
+        CharacterDetectCollider.radius = TraceDetectRange;
     }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            Character character = col.GetComponent<Character>();
+            if (!_characterList.Contains(character))
+            {
+                Debug.Log("새로운 인간을 찾았다!");
+                _characterList.Add(character);
+            }
+        }
+    }
+    
     
     // 매 프레임마다 해당 상태별로 정해진 행동을 한다.
     private void Update()
