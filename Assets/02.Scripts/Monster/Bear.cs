@@ -13,8 +13,7 @@ public class Bear : MonoBehaviour
         Patrol,
         Trace,
         Return,
-        Damaged,
-        Death
+        Attack,
     }
 
     private BearState _state = BearState.Idle;
@@ -38,6 +37,10 @@ public class Bear : MonoBehaviour
     
     // [Return]
     private Vector3 _startPosition;
+    
+    // [Attack]
+    public float AttackDistance = 2.5f;
+    private float _attackTimer = 0f;
 
 
     private void Start()
@@ -89,6 +92,12 @@ public class Bear : MonoBehaviour
             case BearState.Return:
             {
                 Return();
+                break;
+            }
+
+            case BearState.Attack:
+            {
+                Attack();
                 break;
             }
         }
@@ -159,7 +168,71 @@ public class Bear : MonoBehaviour
         }
     }
 
+    private void Trace()
+    {
+        // 타겟이 게임에서 나가면 복귀
+        if (_targetCharacter == null)
+        {
+            Debug.Log("Trace -> Return");
+            _state = BearState.Return;
+            return;
+        }
 
+        // 타겟이 죽거나 너무 멀어지면 복귀
+        Agent.destination = _targetCharacter.transform.position;
+        if (_targetCharacter.State == State.Death || GetDistance(_targetCharacter.transform) < TraceDetectRange)
+        {
+            Debug.Log("Trace -> Return");
+            _state = BearState.Return;
+            return;
+        }
+        
+        // 타겟이 가까우면 공격 상태로 전이
+        if (GetDistance(_targetCharacter.transform) <= AttackDistance)
+        {
+            Debug.Log("Trace -> Attack");
+            MyAnimatior.Play("Idle");
+            _state = BearState.Attack;
+            return;
+        }
+    }
+
+    private void Attack()
+    {
+        Agent.isStopped = true;
+        Agent.ResetPath();
+        
+        // 타겟이 게임에서 나가면 복귀
+        if (_targetCharacter == null)
+        {
+            Debug.Log("Trace -> Return");
+            Agent.isStopped = false;
+            _startPosition = transform.position;
+            _state = BearState.Idle;
+            return;
+        }
+
+        // 타겟이 죽거나 공격 범위에서 벗어나면 복귀
+        Agent.destination = _targetCharacter.transform.position;
+        if (_targetCharacter.State == State.Death || GetDistance(_targetCharacter.transform) < AttackDistance)
+        {
+            Debug.Log("Trace -> Return");
+            Agent.isStopped = false;
+            _startPosition = transform.position;
+            _state = BearState.Idle;
+            return;
+        }
+
+        _attackTimer += Time.deltaTime;
+        if (_attackTimer >= Stat.AttackCoolTime)
+        {
+            _attackTimer = 0f;
+            MyAnimatior.Play("Attack");
+        }
+    }
+
+    
+    
     // 나와의 거리가 distance보다 짧은 플레이어를 반환
     private Character FindTarget(float distance)
     {
@@ -173,6 +246,12 @@ public class Bear : MonoBehaviour
         }
 
         return null;
+    }
+    
+    
+    private float GetDistance(Transform otherTransform)
+    {
+        return Vector3.Distance(transform.position, otherTransform.position);
     }
 }
 
