@@ -18,6 +18,11 @@ public class BattleScene : MonoBehaviourPunCallbacks
         return SpawnPoints[randomIndex].position;
     }
 
+    private void Start()
+    {
+        PhotonNetwork.Instantiate(nameof(Character), Vector3.zero, Quaternion.identity);
+    }
+    
     public override void OnJoinedRoom()
     {
         if (!PhotonNetwork.IsMasterClient)

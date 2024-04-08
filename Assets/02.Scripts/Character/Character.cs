@@ -27,15 +27,15 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         Stat.Init();
         
         PhotonView = GetComponent<PhotonView>();
-
-        if (PhotonView.IsMine)
-        {
-            UI_CharacterStat.Instance.MyCharacter = this;
-        }
     }
     
     private void Start()
     {
+        if (PhotonView.IsMine)
+        {
+            UI_CharacterStat.Instance.MyCharacter = this;
+        }
+        
         if (!PhotonView.IsMine)
         {
             return;
