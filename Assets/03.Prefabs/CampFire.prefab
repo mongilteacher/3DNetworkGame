@@ -4919,6 +4919,7 @@ GameObject:
   - component: {fileID: 5242327268692246125}
   - component: {fileID: 8864390744994791757}
   - component: {fileID: 774763052901730311}
+  - component: {fileID: 4361905977055878334}
   m_Layer: 0
   m_Name: CampFire
   m_TagString: Untagged
@@ -4934,14 +4935,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3086015249921147866}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00009471151, y: -0, z: -0.0035100293, w: 0.99999386}
+  m_LocalRotation: {x: -0.00009606047, y: -0.00000033700016, z: -0.0035081871, w: 0.99999386}
   m_LocalPosition: {x: -3.1748009, y: 0.000759422, z: -29.338163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4535051099632604440}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.011, y: 0, z: -0.402}
 --- !u!33 &1795445019450511535
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5027,3 +5028,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 20
   Cooltime: 1
+--- !u!114 &4361905977055878334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3086015249921147866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 1.6, y: 1.6, z: 1.6}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
