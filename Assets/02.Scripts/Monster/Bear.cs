@@ -4,8 +4,9 @@ using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
-public class Bear : MonoBehaviour
+public class Bear : MonoBehaviour, IPunObservable
 {
     // 곰 상태 상수(열거형)
     public enum BearState
@@ -18,6 +19,9 @@ public class Bear : MonoBehaviour
         Hit,
         Death,
     }
+
+    public Canvas MyCanvas;
+    public Slider HealthSliderUI;
 
     private BearState _state = BearState.Idle;
 
@@ -67,12 +71,31 @@ public class Bear : MonoBehaviour
             }
         }
     }
-    
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        // 데이터 동기화 해야할 것: 체력, 상태
+        if (stream.IsWriting)
+        {
+            stream.SendNext(Stat.Health);
+            stream.SendNext(_state);
+        }
+        else if (stream.IsReading)
+        {
+            Stat.Health = (int)stream.ReceiveNext();
+            _state = (BearState)stream.ReceiveNext();
+        }
+    }
+
     
     // 매 프레임마다 해당 상태별로 정해진 행동을 한다.
     private void Update()
     {
+        MyCanvas.transform.forward = Camera.main.transform.forward;
+        HealthSliderUI.value = (float)Stat.Health / Stat.MaxHealth;
+        
         // 조기 반환
+        // 방장만이 할 수 있는거
         if (!PhotonNetwork.IsMasterClient)
         {
             return;
