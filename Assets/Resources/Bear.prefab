@@ -1487,6 +1487,59 @@ Transform:
   - {fileID: 534044372786727925}
   m_Father: {fileID: 7210117463883142227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5280261915679241774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7389970005931040761}
+  - component: {fileID: 4952341065656553718}
+  m_Layer: 6
+  m_Name: DetectCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7389970005931040761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280261915679241774}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7005311097356617444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4952341065656553718
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280261915679241774}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5419628393933870537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,6 +2222,7 @@ GameObject:
   - component: {fileID: 1042231563535208116}
   - component: {fileID: 5642946262998346270}
   - component: {fileID: 4353965952859295520}
+  - component: {fileID: 4632002212934282328}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Untagged
@@ -2189,6 +2243,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7389970005931040761}
   - {fileID: 2016838488063846347}
   - {fileID: 7791205403476718488}
   - {fileID: 1954859558578913225}
@@ -2231,11 +2286,11 @@ MonoBehaviour:
   HealthSliderUI: {fileID: 8806686529149240580}
   MyAnimatior: {fileID: 79871719406815053}
   Agent: {fileID: 5019749053797036412}
-  CharacterDetectCollider: {fileID: 1042231563535208116}
+  CharacterDetectCollider: {fileID: 4952341065656553718}
   Stat:
     Damage: 40
-    Health: 1000
-    MaxHealth: 1000
+    Health: 50
+    MaxHealth: 50
     Stamina: 0
     MaxStamina: 0
     RunConsumeStamina: 0
@@ -2313,6 +2368,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 672520140167466601}
   - {fileID: 4353965952859295520}
   sceneViewId: 0
   InstantiationId: 0
@@ -2333,6 +2389,33 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!54 &4632002212934282328
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432540158297880071}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7502081128236532809
 GameObject:
   m_ObjectHideFlags: 0
