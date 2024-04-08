@@ -82,8 +82,6 @@ public class CharacterAttackAbility : CharacterAbility
             return;
         }
         
-        Debug.Log(other.name);
-        
         // O: 개방 폐쇄 원칙 + 인터페이스 
         // 수정에는 닫혀있고, 확장에는 열려있다.
         IDamaged damagedAbleObject = other.GetComponent<IDamaged>();
