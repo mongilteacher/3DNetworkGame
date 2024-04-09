@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -35,6 +36,8 @@ public class BattleScene : MonoBehaviourPunCallbacks
             Init();
         }
     }
+
+    
     
     public void Init()
     {
@@ -57,4 +60,3 @@ public class BattleScene : MonoBehaviourPunCallbacks
     
     
 }
-   

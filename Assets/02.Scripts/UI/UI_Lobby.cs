@@ -5,11 +5,29 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CharacterType
+{
+    Female,
+    Male,
+}
+
 public class UI_Lobby : MonoBehaviour
 {
+    public CharacterType SelectedCharacterType = CharacterType.Female;
+
+    public GameObject FemaleCharacter;
+    public GameObject MaleCharacter;
+    
+    
     public InputField NicknameInputFieldUI;
     public InputField RoomIDInputFieldUI;
 
+    private void Start()
+    {
+        FemaleCharacter.SetActive(SelectedCharacterType == CharacterType.Female);
+        MaleCharacter.SetActive(SelectedCharacterType == CharacterType.Male);
+    }
+    
     // 방만들기 버튼을 눌렀을때 호출되는 함수
     public void OnClickMakeRoomButton()
     {
@@ -31,4 +49,16 @@ public class UI_Lobby : MonoBehaviour
         
         PhotonNetwork.JoinOrCreateRoom(roomID, roomOptions, TypedLobby.Default); // 방이 있다면 입장하고 없다면 만드는 것
     }
+
+
+    // 캐릭터 타입 버튼을 눌렀을때 호출되는 함수
+    public void OnClickMaleButton() { OnClickCharacterTypeButton(CharacterType.Male); }
+    public void OnClickFemaleButton() => OnClickCharacterTypeButton(CharacterType.Female);
+    private void OnClickCharacterTypeButton(CharacterType characterType)
+    {
+        SelectedCharacterType = characterType;
+        FemaleCharacter.SetActive(SelectedCharacterType == CharacterType.Female);
+        MaleCharacter.SetActive(SelectedCharacterType == CharacterType.Male);
+    }
+    
 }
