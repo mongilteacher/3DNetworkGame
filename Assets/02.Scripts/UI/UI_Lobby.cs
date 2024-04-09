@@ -53,6 +53,7 @@ public class UI_Lobby : MonoBehaviour
         {
             {"MasterNickname", nickname}
         };
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "MasterNickname" };
         
         
         PhotonNetwork.JoinOrCreateRoom(roomID, roomOptions, TypedLobby.Default); // 방이 있다면 입장하고 없다면 만드는 것
