@@ -229,6 +229,7 @@ public class Bear : MonoBehaviour, IPunObservable, IDamaged
             Debug.Log("Trace -> Patrol");
             _startPosition = transform.position;
             SetRandomPatrolDestination();
+            RequestPlayAnimation("Run");
             _state = BearState.Patrol;
             return;
         }
@@ -238,7 +239,7 @@ public class Bear : MonoBehaviour, IPunObservable, IDamaged
         {
             Agent.isStopped = true;
             Debug.Log("Trace -> Attack");
-            MyAnimatior.Play("Idle");
+            RequestPlayAnimation("Attack");
             
             Agent.isStopped = true;
             Agent.ResetPath();

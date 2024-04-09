@@ -2289,8 +2289,8 @@ MonoBehaviour:
   CharacterDetectCollider: {fileID: 4952341065656553718}
   Stat:
     Damage: 40
-    Health: 50
-    MaxHealth: 50
+    Health: 200
+    MaxHealth: 200
     Stamina: 0
     MaxStamina: 0
     RunConsumeStamina: 0
